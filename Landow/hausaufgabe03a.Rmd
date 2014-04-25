@@ -79,3 +79,5 @@ Es ist natürlich auch möglich R-Code zu schreiben, ohne ihn in (R)Markdown ein
 
 # Lizenz
 Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
+
+Diese Datei darf weiter als Beispiel genutzt werden.
