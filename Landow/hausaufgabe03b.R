@@ -1,7 +1,10 @@
 # Hausaufgabe 03b
 # Landow, Steven <landow@students-marburg.de>
 # 2014-04-28
-# Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
+
+# Lizenz
+  # Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz 
+  # und darf entsprechend als Beispiel genutzt werden, wenn Sie mögen.
 
 
 # Sie sollten die Datei auch in Ihren Ordner kopieren und einen Commit machen, 
@@ -137,5 +140,3 @@ print(my.histogram)
 # Kleinigkeiten, die wir immer wieder nutzen werden. Machen Sie einen Commit und
 # einen Push!
 
-  # Lizenz
-  # Diese Datei darf weiter als Beispiel genutzt werden, wenn Sie mögen.
