@@ -1,6 +1,6 @@
 % Hausaufgabe 03
-% Phillip Alday <phillip.alday@staff.uni-marburg.de>
-% 2014-04-23
+% Steven Landow <landow@students.uni-marburg.de>
+% 2014-04-25
 
 Falls die Umlaute in dieser und anderen Dateien nicht korrekt dargestellt werden, sollten Sie File > Reopen with Encoding > UTF-8 sofort machen (und auf jeden Fall ohne davor zu speichern), damit die Enkodierung korrekt erkannt wird! 
 
@@ -91,3 +91,5 @@ Es ist natürlich auch möglich R-Code zu schreiben, ohne ihn in (R)Markdown ein
 
 # Lizenz
 Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
+
+Diese Datei darf weiter als Beispiel genutzt werden.
