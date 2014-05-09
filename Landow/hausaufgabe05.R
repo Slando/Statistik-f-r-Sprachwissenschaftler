@@ -1,4 +1,4 @@
-# Hausaufgabe 04
+# Hausaufgabe 05
 # Landow,Steven <Landow@students.uni-marburg.de>
 # 2014-05-05
 # Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz und darf als Beispiel genutzt werden.
@@ -86,12 +86,14 @@ frauen <- subset(dat, sex=="f")
 #ziehen kann. Dafür gibt es verschiedene Möglichkeiten; die Wahl bleibt Ihnen
 #überlassen. 
 frauen.studiengang.bw <- ggplot(data=frauen) + geom_boxplot(aes(x=major,y=height))
-  print(frauen.studiengang.bw)
+print(frauen.studiengang.bw)
+
 
 # Sehen die Studiengänge anders aus? Wir müssen hier noch relativ vorrsichtig
 # sein, weil die Gruppen *unbalanziert* sind, d.h. die Gruppen sind
 # unterschiedlich groß. Aber wie sieht der Vergleich auf den ersten Blick aus?
 # (Keine explizite Antwort nötig, nur eine Überlegung.)
+  #Ja, es sind Unterschiede zwischen den Studiengängen auszumachen.
 
 # Wir können natürlich auch die Dichte anschauen:
 frauen.studiengang.dichte <- ggplot(data=frauen) + geom_density(aes(color=major,fill=major,x=height),alpha=0.5)
@@ -103,6 +105,10 @@ print(frauen.studiengang.dichte)
 # Haben Sie den gleichen Eindruck wie bei Box-Whisker bekommen? Unterscheiden
 # sich die Gruppen?
 # (Keine explizite Antwort nötig, nur eine Überlegung.)
+
+  # Es gibt zum einen optische Unterschiede. So wirkt die Gruppe mit dem major "other" 
+  # bei Box-Whisker mächtiger als die die anderen Gruppen, 
+  # obwohl es aus dieser Gruppe nur zwei Werte gibt. 
 
 # Welche Gruppe hat gefehlt? Wie viele Datenpunkte gab es für die Gruppe?
 # (Keine explizite Antwort nötig, nur eine Überlegung.)
@@ -140,11 +146,30 @@ print(linkk)
 # Gruppen. Sie können auch weitere Zeilen hinzufügen, wenn es Ihnen so leichter
 # ist. 
 # HINT: Formel und Beispiel für die Berechnung auf den Folien!
-#klinisch.sd <- CODE_HIER
-#linkk.sd <- CODE_HIER
-#speech.sd <- CODE_HIER
+
+
+klinisch.sd <- sqrt(mean((klinisch$height - mean(klinisch$height))^2))
+print(klinisch.sd)
+# direkter Vergleich zur Berechnung mit Funktion var()
+klinisch.sd2 <- sqrt(var(klinisch$height))
+print(klinisch.sd2)
+
+linkk.sd <- sqrt(mean((linkk$height - mean(linkk$height))^2))
+print(linkk.sd)
+# direkter Vergleich zur Berechnung mit Funktion var()
+linkk.sd2 <- sqrt(var(linkk$height))
+print(linkk.sd2)
+
+speech.sd <- sqrt(mean((speech$height - mean(speech$height))^2))
+print(speech.sd)
+# direkter Vergleich zur Berechnung mit Funktion var()
+speech.sd2 <- sqrt(var(speech$height))
+print(speech.sd2)
+
 
 # Berichten Sie jetzt die Mittelwerte und Standardabweichungen für die drei Gruppen. Die erste Gruppe steht hier als Muster:
 print( paste("Studiengang: Klinische Linguistik","Mean:",mean(klinisch$height),"SD:",klinisch.sd) )
-#CODE_HIER
+print( paste("Studiengang: Linguistik Kognition und Kommunikation","Mean:",mean(linkk$height),"SD:",linkk.sd) )
+print( paste("Studiengang: Speech Science","Mean:",mean(speech$height),"SD:",speech.sd) )
+
 
