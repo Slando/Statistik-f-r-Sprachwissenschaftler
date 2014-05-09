@@ -4,10 +4,11 @@
 
 Falls die Umlaute in dieser und anderen Dateien nicht korrekt dargestellt werden, sollten Sie File > Reopen with Encoding > UTF-8 sofort machen (und auf jeden Fall ohne davor zu speichern), damit die Enkodierung korrekt erkannt wird! 
 
-```{r, echo=FALSE}
-# citations with R -- kinda like BibTeX!
-suppressPackageStartupMessages(library(knitcitations))
+
 ```
+## Error: there is no package called 'knitcitations'
+```
+
 
 # Die nächsten Punkte sollten langsam automatisch sein...
 1. Kopieren Sie diese Datei in Ihren Ordner (das können Sie innerhalb RStudio machen oder mit Explorer/Finder/usw.) und öffnen Sie die Kopie. Ab diesem Punkt arbeiten Sie mit der Kopie. Die Kopie bitte `hausaufgabe07.Rmd` nennen und nicht `Kopie...`
@@ -23,42 +24,122 @@ suppressPackageStartupMessages(library(knitcitations))
 # Verteilung von Noten
 An der Uni Marburg nutzen wir 15 Punkte als Benotungskala (*Notenpunkte*). Wir nehmen an, dass der Mittelwert 8 NP (=3 im üblichen 1-5 System, was eigentlich einem durchschnittlichen Verständnis des Stoffes entsprechen soll) ist. Wie sieht dann die Verteilung der Noten aus? Wir müssen uns noch überlegen, was eine sinnvolle Standardabweichung für die Noten wäre. Vielleicht ist am leichtesten, wenn wir einfach ein paar ausprobieren und plotten. Wir fangen mit $\sigma = 3,4,5$ an. Das entspricht 1, 1.5, 2 Noten auf der 1-5 Skala.
 
-```{r}
+
+```r
 noten <- 1:15
 mu <- 8
-drei <- dnorm(noten,mean=mu,sd=3)
-vier <- dnorm(noten,mean=mu,sd=4)
-fuenf <- dnorm(noten,mean=mu,sd=5)
+drei <- dnorm(noten, mean = mu, sd = 3)
+vier <- dnorm(noten, mean = mu, sd = 4)
+fuenf <- dnorm(noten, mean = mu, sd = 5)
 
-noten.dist <- data.frame(Notenpunkte=noten,drei,vier,fuenf)
+noten.dist <- data.frame(Notenpunkte = noten, drei, vier, fuenf)
 noten.dist
 ```
+
+```
+##    Notenpunkte     drei    vier   fuenf
+## 1            1 0.008741 0.02157 0.02995
+## 2            2 0.017997 0.03238 0.03884
+## 3            3 0.033159 0.04566 0.04839
+## 4            4 0.054670 0.06049 0.05794
+## 5            5 0.080657 0.07528 0.06664
+## 6            6 0.106483 0.08802 0.07365
+## 7            7 0.125794 0.09667 0.07821
+## 8            8 0.132981 0.09974 0.07979
+## 9            9 0.125794 0.09667 0.07821
+## 10          10 0.106483 0.08802 0.07365
+## 11          11 0.080657 0.07528 0.06664
+## 12          12 0.054670 0.06049 0.05794
+## 13          13 0.033159 0.04566 0.04839
+## 14          14 0.017997 0.03238 0.03884
+## 15          15 0.008741 0.02157 0.02995
+```
+
 
 Die Daten sind im sog. **wide format** (*breiten Format*), weil die verschiedenen Stufen einer Variable (hier: simulierte Standardabweichung) "breit", d.h. über mehrere Spalten hinweg, dargestellt werden. Obwohl viele es als "natürlich" betrachten, ist dieses Format in R nicht bevorzugt. Unter anderem haben wir hier mehrere Beobachtungen pro Zeile, was aus der Perspektive der Statistik ein bisschen durcheinander ist. R (und die Mathematik, die R Ihnen abnimmt) bevorzugt sog. **long format** (*langes Format*), wo es eine Beobachtung pro Zeile gibt. In diesem Format gibt es dann bei unserem Beispiel eine weitere Spalte "Standardabweichung" und die drei verschiedenen beobachteten Messwerte werden zusammen in eine Spalte gepackt. Das Paket `reshape2` bietet ein paar Hilfsfunktionen an, die das Umformatieren viel leichter machen. (Es gibt auch das Paket `reshape` vom selben Autor, das auch ähnliches macht. `reshape2` hat ein paar Verbesserungen eingeführt, die nicht ganz rückwärts kompatibel sind.)
 
 Die Funktion heißt `melt()` (*schmelzen*) aus der Analogie zu Schmieden, wo die Daten (der Rohstoff) in eine schmiedbare bzw. flüssige Form gebracht werden. Aus dem Long-Format kann man ggf. die Daten in andere Formate mit `cast()` (*gießen*) konvertieren. 
 
-```{r}
+
+```r
 library(reshape2)
-# value.name is the name of the new column with the values that were previously spread out over several columns
-# variable.name is the name of the new column with the old column names 
-melt(noten.dist,id.vars="Notenpunkte",value.name="P",variable.name="Standardabweichung")
+# value.name is the name of the new column with the values that were
+# previously spread out over several columns variable.name is the name of
+# the new column with the old column names
+melt(noten.dist, id.vars = "Notenpunkte", value.name = "P", variable.name = "Standardabweichung")
 ```
+
+```
+##    Notenpunkte Standardabweichung        P
+## 1            1               drei 0.008741
+## 2            2               drei 0.017997
+## 3            3               drei 0.033159
+## 4            4               drei 0.054670
+## 5            5               drei 0.080657
+## 6            6               drei 0.106483
+## 7            7               drei 0.125794
+## 8            8               drei 0.132981
+## 9            9               drei 0.125794
+## 10          10               drei 0.106483
+## 11          11               drei 0.080657
+## 12          12               drei 0.054670
+## 13          13               drei 0.033159
+## 14          14               drei 0.017997
+## 15          15               drei 0.008741
+## 16           1               vier 0.021569
+## 17           2               vier 0.032379
+## 18           3               vier 0.045662
+## 19           4               vier 0.060493
+## 20           5               vier 0.075284
+## 21           6               vier 0.088016
+## 22           7               vier 0.096667
+## 23           8               vier 0.099736
+## 24           9               vier 0.096667
+## 25          10               vier 0.088016
+## 26          11               vier 0.075284
+## 27          12               vier 0.060493
+## 28          13               vier 0.045662
+## 29          14               vier 0.032379
+## 30          15               vier 0.021569
+## 31           1              fuenf 0.029945
+## 32           2              fuenf 0.038837
+## 33           3              fuenf 0.048394
+## 34           4              fuenf 0.057938
+## 35           5              fuenf 0.066645
+## 36           6              fuenf 0.073654
+## 37           7              fuenf 0.078209
+## 38           8              fuenf 0.079788
+## 39           9              fuenf 0.078209
+## 40          10              fuenf 0.073654
+## 41          11              fuenf 0.066645
+## 42          12              fuenf 0.057938
+## 43          13              fuenf 0.048394
+## 44          14              fuenf 0.038837
+## 45          15              fuenf 0.029945
+```
+
 
 Wir müssen den Output von `melt()` natürlich einer Variable zuweisen. Wir können die Ausgangsvariable "überschreiben":
 
-```{r}
-noten.dist <- melt(noten.dist,id.vars="Notenpunkte",value.name="P",variable.name="Standardabweichung")
+
+```r
+noten.dist <- melt(noten.dist, id.vars = "Notenpunkte", value.name = "P", variable.name = "Standardabweichung")
 ```
+
 
 Das funktioniert, weil alles rechts von `<-` zuerst gemacht wird. *Die Zuweisung findet erst nach der Evaluation der rechten Seite statt!* Jetzt können wir alle drei Verteilungen mit einem `ggplot`-Befehl grafisch darstellen. 
 
-```{r}
+
+```r
 library(ggplot2)
-# we use geom_line() because dnorm() already gave us the densities! 
-# we onle use geom_density() when ggplot should calculate the density for us
-ggplot(data=noten.dist,aes(x=Notenpunkte,y=P,color=Standardabweichung)) + geom_line() + scale_x_continuous(limits=c(0,16))
+# we use geom_line() because dnorm() already gave us the densities!  we onle
+# use geom_density() when ggplot should calculate the density for us
+ggplot(data = noten.dist, aes(x = Notenpunkte, y = P, color = Standardabweichung)) + 
+    geom_line() + scale_x_continuous(limits = c(0, 16))
 ```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+
 Ich habe die Grenzen der Grafik ein bisschen breiter gestellt, sodass man die Endpunkte klar sieht und Sie auch einen weiteren `ggplot`-Befehl kennen lernen. 
 
 Welche Verteilung sieht am fairsten aus? Warum?
@@ -67,33 +148,62 @@ Bei einer Verteilung mit einer SD von 3 befinden sich mehr Studenten im mittlere
 Somit ist "fair" je nach Anspruch des Dozenten definiert. Wie leicht soll die Note 1 erreicht werden können?
 
 Wir können das konkreter machen: welcher Anteil der Studenten bekommt bei den jeweiligen Verteilungen eine 1 (zumindest 13 NP)? Für die Verteilung mit $\sigma = 3$ sieht die Berechnung mit R so aus:
-```{r}
-pnorm(13,mean=mu,sd=3,lower.tail=FALSE)
+
+```r
+pnorm(13, mean = mu, sd = 3, lower.tail = FALSE)
 ```
+
+```
+## [1] 0.04779
+```
+
 Oder vielleicht interessiert uns der Anteil der Durchgefallenen (< 5NP):
-```{r}
-pnorm(5,mean=mu,sd=3)
+
+```r
+pnorm(5, mean = mu, sd = 3)
 ```
+
+```
+## [1] 0.1587
+```
+
 
 Wenn wir das für alle drei Gruppen wiederholen möchten, ist es ziemlich ärgerlich, wenn wir jede Gruppe einzeln eingeben müssen. Dafür können wir eine **`for`-Schleife** nutzen:
 
-```{r}
-for(s in c(3,4,5) ){
-  durchfall <- pnorm(5,mean=mu,sd=s)
-  output <- paste("Bei einer Standabweichung von",s, "fallen",durchfall*100,"% durch.")
-  print(output)
+
+```r
+for (s in c(3, 4, 5)) {
+    durchfall <- pnorm(5, mean = mu, sd = s)
+    output <- paste("Bei einer Standabweichung von", s, "fallen", durchfall * 
+        100, "% durch.")
+    print(output)
 }
 ```
+
+```
+## [1] "Bei einer Standabweichung von 3 fallen 15.8655253931457 % durch."
+## [1] "Bei einer Standabweichung von 4 fallen 22.6627352376868 % durch."
+## [1] "Bei einer Standabweichung von 5 fallen 27.4253117750074 % durch."
+```
+
 Aber wir hoffen alle, dass wir doch eine gute Note bekommen. Fügen Sie einen Code-Block hier ein, der das gleiche aber mit "ausgezeichneten" Noten (=1 bzw. >= 13) macht. (Bei evtl. Copy-Paste nicht vergessen, "fallen...durch" durch etwas Passendes zu ersetzen!)  
 
-```{r}
+
+```r
 for (b in c(3, 4, 5)) {
-    Einser <- pnorm(13, mean = mu, sd = b, lower.tail=FALSE)
-    output2 <- paste("Bei einer Standabweichung von", b, "haben", Einser * 
-        100, "% eine Note 1.")
+    Einser <- pnorm(13, mean = mu, sd = b, lower.tail = FALSE)
+    output2 <- paste("Bei einer Standabweichung von", b, "haben", Einser * 100, 
+        "% eine Note 1.")
     print(output2)
 }
 ```
+
+```
+## [1] "Bei einer Standabweichung von 3 haben 4.77903522728147 % eine Note 1."
+## [1] "Bei einer Standabweichung von 4 haben 10.5649773666855 % eine Note 1."
+## [1] "Bei einer Standabweichung von 5 haben 15.8655253931457 % eine Note 1."
+```
+
 
 Wie steht die Anzahl guter Noten in Beziehung zur Anzahl schlechter Noten? 
 
@@ -115,18 +225,67 @@ Eine Verteilung mit mehr guten Noten wäre linksschief.
 
 Vielleicht hilft folgende Grafik mit der Visualisierung:
 
-```{r echo=FALSE}
-suppressPackageStartupMessages(library(sn))
-qplot(x=1:15,y=dsn(1:15, xi=c(12), omega=1, alpha=-3, log=FALSE),geom="line",xlab="Notenpunkte",ylab="P")
-```
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
+
 
 ## Von Perzentilen auf Häufikgeiten
 Wir können die Perzentile in (absolute) Häufigkeiten übersetzen. Nehmen wir an, dass es 50 Studenten in einem Kurs gibt und dass die Noten wie oben normal verteilt sind. Dann können wir unserem Data.Frame eine weitere Spalte hinzufügen:
-```{r}
+
+```r
 n <- 50
 noten.dist$Anzahl <- noten.dist$P * n
 noten.dist
 ```
+
+```
+##    Notenpunkte Standardabweichung        P Anzahl
+## 1            1               drei 0.008741 0.4370
+## 2            2               drei 0.017997 0.8998
+## 3            3               drei 0.033159 1.6580
+## 4            4               drei 0.054670 2.7335
+## 5            5               drei 0.080657 4.0328
+## 6            6               drei 0.106483 5.3241
+## 7            7               drei 0.125794 6.2897
+## 8            8               drei 0.132981 6.6490
+## 9            9               drei 0.125794 6.2897
+## 10          10               drei 0.106483 5.3241
+## 11          11               drei 0.080657 4.0328
+## 12          12               drei 0.054670 2.7335
+## 13          13               drei 0.033159 1.6580
+## 14          14               drei 0.017997 0.8998
+## 15          15               drei 0.008741 0.4370
+## 16           1               vier 0.021569 1.0785
+## 17           2               vier 0.032379 1.6190
+## 18           3               vier 0.045662 2.2831
+## 19           4               vier 0.060493 3.0246
+## 20           5               vier 0.075284 3.7642
+## 21           6               vier 0.088016 4.4008
+## 22           7               vier 0.096667 4.8334
+## 23           8               vier 0.099736 4.9868
+## 24           9               vier 0.096667 4.8334
+## 25          10               vier 0.088016 4.4008
+## 26          11               vier 0.075284 3.7642
+## 27          12               vier 0.060493 3.0246
+## 28          13               vier 0.045662 2.2831
+## 29          14               vier 0.032379 1.6190
+## 30          15               vier 0.021569 1.0785
+## 31           1              fuenf 0.029945 1.4973
+## 32           2              fuenf 0.038837 1.9419
+## 33           3              fuenf 0.048394 2.4197
+## 34           4              fuenf 0.057938 2.8969
+## 35           5              fuenf 0.066645 3.3322
+## 36           6              fuenf 0.073654 3.6827
+## 37           7              fuenf 0.078209 3.9104
+## 38           8              fuenf 0.079788 3.9894
+## 39           9              fuenf 0.078209 3.9104
+## 40          10              fuenf 0.073654 3.6827
+## 41          11              fuenf 0.066645 3.3322
+## 42          12              fuenf 0.057938 2.8969
+## 43          13              fuenf 0.048394 2.4197
+## 44          14              fuenf 0.038837 1.9419
+## 45          15              fuenf 0.029945 1.4973
+```
+
 
 Jetzt können wir die absoluten Häufigkeiten auch plotten:
 
@@ -136,7 +295,7 @@ Beantworten Sie ein paar Fragen über die Verteilung, indem Sie den passenden R-
 
 1. Wie viele Studenten bekommen zwischen 7 und 9 NP bei einer Standardabweichung von 3?
 
-    `r (pnorm(9,mean=mu,sd=3) - pnorm(7,mean=mu,sd=3) ) * n` Studenten bekommen zwischen 7 und 9 Notenpunkten. 
+    13.0559 Studenten bekommen zwischen 7 und 9 Notenpunkten. 
     
     Wichtig: bei Wahrscheinlichkeits- und Häufigkeitsverteilung ist der linke Rand inklusiv aber der rechte Rand exklusiv! Das heißt, wir zählen hiermit die Leute, die bis zu 9 NP bekommen haben aber nicht die, die tatsächlich 9 NP bekommen haben!
 
@@ -158,14 +317,22 @@ Beantworten Sie ein paar Fragen über die Verteilung, indem Sie den passenden R-
 ## Von Noten zu Perzentilen -- ich möchte mich den anderen überlegen fühlen!
 Manchmal will man in die andere Richtung gehen -- z.B. um die Frage beantworten zu können, welche Note man erreichen muss, um überdurchschnittlich zu sein. Dafür haben wir `qnorm()`. Überdurchschnittlich heißt "besser als die Hälfte abscheiden" (duh!) und wir nehmen wieder an, dass die Standardabweichung gleich 3 ist. Dann haben wir die Aussage:
 
-Um überdurchschnittlich zu sein, muss man mehr als `r qnorm(0.5,mean=mu,sd=3)` Notenpunkte bekommen. 
+Um überdurchschnittlich zu sein, muss man mehr als 8 Notenpunkte bekommen. 
 
 Nicht so überraschend, dass "überdurchschnittlich" auch "mehr Punkte als den Durchschnitt bekommen" heißt! Wie sieht es aus, wenn wir besser als 99% der anderen abschließen möchten?
 
 Um in dem besten 1% abzuschließen, muss man zumindest `code_hier` Notenpunkte bekommen.
 
 ## z-Transformation
-Bei der Überprüfung der Lehrqualität scheint es der Verwaltung, dass ein gewisser Dozent andere Noten als andere Dozenten vergibt. Es wird entschieden, dass der Notenspiegel bei den Teilnehmern in einem von seinen Kursen getestet wird, um zu schauen, ob er sich von signifikant von der idealisierten Notenverteilung ($\mu=8,\sigma=3$) unterscheidet. Um zu zeigen, dass Gott $\alpha=0.06$ so viel liebt wie $\alpha=0.05$ `r citep("10.1037/0003-066X.44.10.1276")`, setzt die Verwaltung das Signikanzniveau auf 0.06. 
+Bei der Überprüfung der Lehrqualität scheint es der Verwaltung, dass ein gewisser Dozent andere Noten als andere Dozenten vergibt. Es wird entschieden, dass der Notenspiegel bei den Teilnehmern in einem von seinen Kursen getestet wird, um zu schauen, ob er sich von signifikant von der idealisierten Notenverteilung ($\mu=8,\sigma=3$) unterscheidet. Um zu zeigen, dass Gott $\alpha=0.06$ so viel liebt wie $\alpha=0.05$ 
+
+```
+
+Error in eval(expr, envir, enclos) : konnte Funktion "citep" nicht finden
+
+```
+
+, setzt die Verwaltung das Signikanzniveau auf 0.06. 
 
 Der kritische Wert für einen einseitigen $z$-Test ist `code_hier`.
 
@@ -211,9 +378,11 @@ Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied.
 Gibt es einen Grund, weshalb die Noten normal verteilt sein sollten? Warum ist das die übliche Annahme?
 
 # Bibliografie
-```{r, echo=FALSE,results='asis'}
-bibliography()
+
 ```
+## Error: konnte Funktion "bibliography" nicht finden
+```
+
 
 
 # Lizenz
