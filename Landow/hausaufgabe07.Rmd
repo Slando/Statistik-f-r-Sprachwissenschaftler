@@ -148,11 +148,11 @@ Beantworten Sie ein paar Fragen über die Verteilung, indem Sie den passenden R-
 
 3. Wie viele Studenten bekommen weniger als 10 NP?
 
-    `r (pnorm(10,mean=mu,sd=3, lower.tail=TRUE)*n)` Studenten bekommen weniger als 10 Notenpunkte.
-
+    `r (pnorm(10,mean=mu,sd=3)*n)` Studenten bekommen weniger als 10 Notenpunkte.
+`
 4. Wie viele Studenten bekommen weniger als 8 NP?
 
-    `r (pnorm(8,mean=mu,sd=3, lower.tail=TRUE)*n)` Studenten bekommen weniger als 8 Notenpunkte.
+    `r (pnorm(8,mean=mu,sd=3)*n)` Studenten bekommen weniger als 8 Notenpunkte.
 
 
 (Die Einrückung mit 4 Leerschlägen ist die Syntax für mehrere Absätze pro Punkt auf der Liste.)
@@ -164,31 +164,39 @@ Um überdurchschnittlich zu sein, muss man mehr als `r qnorm(0.5,mean=mu,sd=3)` 
 
 Nicht so überraschend, dass "überdurchschnittlich" auch "mehr Punkte als den Durchschnitt bekommen" heißt! Wie sieht es aus, wenn wir besser als 99% der anderen abschließen möchten?
 
-Um in dem besten 1% abzuschließen, muss man zumindest `code_hier` Notenpunkte bekommen.
+Um in dem besten 1% abzuschließen, muss man zumindest `r qnorm(0.99,mean=mu,sd=3)` Notenpunkte bekommen.
 
 ## z-Transformation
 Bei der Überprüfung der Lehrqualität scheint es der Verwaltung, dass ein gewisser Dozent andere Noten als andere Dozenten vergibt. Es wird entschieden, dass der Notenspiegel bei den Teilnehmern in einem von seinen Kursen getestet wird, um zu schauen, ob er sich von signifikant von der idealisierten Notenverteilung ($\mu=8,\sigma=3$) unterscheidet. Um zu zeigen, dass Gott $\alpha=0.06$ so viel liebt wie $\alpha=0.05$ `r citep("10.1037/0003-066X.44.10.1276")`, setzt die Verwaltung das Signikanzniveau auf 0.06. 
 
-Der kritische Wert für einen einseitigen $z$-Test ist `code_hier`.
+Der kritische Wert für einen einseitigen $z$-Test ist `r qnorm(0.94)`.
 
-Die kritischen Werte für einen zweiseitigen $z$-Test sind $\pm$`code_hier`.
+Die kritischen Werte für einen zweiseitigen $z$-Test sind $\pm$ `r qnorm(0.97)`.
 
 ### Gibt es einen Unterschied?
 Bei diesem Dozenten ist die Verwaltung wirklich unsicher, ob und was für einen Unterschied es geben könnte. (Welche Testart sollte man hier nutzen?)
+Ein einseitiger Test müsste ausreichen, da die Verschiebung nur in eine Richtung beobachtet wurde.
 
 In einem kleinen Seminar mit 7 Studenten beträgt der Durchschnittswert 10. Unterscheidet sich der Notenspiegel von dem idealen? Berechnen Sie den $z$-Test:
 
-code_hier
+``` {r}
+sqrt(7) * ((10 - 8)/3)
+```
 
 Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
 
 In einer Vorlesung vom selben Dozenten mit 50 Teilnehmern beträgt der Durchschnittswert wieder 10. (Es scheint, dass der Dozent 10 besonders toll findet.) Berechnen Sie den $z$-Test:
 
-code_hier
+``` {r}
+sqrt(50) * ((10 - 8)/3)
+
+```
 
 Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
 
 Ist die Benotung vom Dozenten weniger als ideal? 
+
+Die Benotung ist abweichend. Es gibt zumindest bei 50 Studenten eine signifikante Abweichung, da `r sqrt(50) * ((10 - 8)/3)` > `r qnorm(0.94)`. Bei 7 Studenten ist die Abweichung nicht signifikant.
 
 ### Ein anderer, böserer? Dozent
 Die Verwaltung ist auch auf einen anderen Dozenten aufmerksam geworden, weil manche Studenten behaupten, er würde zu streng benoten. (Welche Testart sollte man hier nutzen?)
@@ -197,7 +205,11 @@ In einem mittelgroßen Seminar mit 20 Studenten beträgt der Durchschnittswert 7
 
 Berechnen Sie den $z$-Test:
 
-code_hier
+``` {r}
+sqrt((sqrt(20) * ((7 - 8)/ 3))^2)
+
+
+```
 
 Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
 
@@ -205,7 +217,12 @@ Später ergibt sich, dass es eigentlich 25 Studenten im Kurs gab. (Der Dozent ha
 
 Berechnen Sie den $z$-Test:
 
-code_hier
+``` {r}
+z<-sqrt((sqrt(25) * ((7 - 8)/ 3))^2)
+print(z)
+```
+Der Notenschnitt weicht für 25 Studenten im Schnitt signifikant (da `r z` > `r qnorm(0.94)`) von der Erwartung (8NP) ab, nicht jedoch für 20 Studenten.
+
 
 Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
 
@@ -219,4 +236,4 @@ bibliography()
 
 
 # Lizenz
-Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
+Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz und darf entsprechend verwendet werden.
