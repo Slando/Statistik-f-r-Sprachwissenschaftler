@@ -6,13 +6,13 @@ autosize: false
 
 ```{r setup, include=FALSE}
 opts_chunk$set(cache=TRUE,prompt=TRUE)
-library(knitcitations)
+#library(knitcitations)
 library(ggplot2)
 library(reshape2)
-cite_options(tooltip = TRUE
-             , linked = TRUE
-             , numerical = TRUE
-             , bibtex_data = FALSE)
+#cite_options(tooltip = TRUE
+ #            , linked = TRUE
+  #           , numerical = TRUE
+   #          , bibtex_data = FALSE)
 ```
 
 
@@ -169,8 +169,8 @@ Null-Hypothesis Significance Testing
 - Basisfrage: Ist die Nullhypothese mit der Empirie zu vereinbaren?
 - ist dies nicht der Fall, wird die Nullhypothese zugunsten der Alternativhypothese verworfen
 - **Obacht** modernes NHST:
-  - komische Mischung aus zwei Urformulierungen `r citep(c(gigerenzer2004="10.1016/j.socec.2004.09.033"))`
-  - nicht besonders intuitiv`r citep(c(cohen1994="10.1037/0003-066X.49.12.997",cohen1990="10.1037/0003-066X.45.12.1304"))`
+  - komische Mischung aus zwei Urformulierungen ` citep(c(gigerenzer2004="10.1016/j.socec.2004.09.033"))`
+  - nicht besonders intuitiv` citep(c(cohen1994="10.1037/0003-066X.49.12.997",cohen1990="10.1037/0003-066X.45.12.1304"))`
   - extrem kontrovers (zu viele um aufzulisten)
   
 NHST: Vorgehen
@@ -223,7 +223,7 @@ Fehlerarten
 - **$\beta$-Fehler (Type II Error)**: Fälschliche Beibehaltung der Nullhypothese
   - etwa falsches Negativ
 
-<small>Vgl. Type M und Type S Error `r citep("http://andrewgelman.com/2004/12/29/type_1_type_2_t/")` mehr dazu später!</small>
+<small>Vgl. Type M und Type S Error ` citep("http://andrewgelman.com/2004/12/29/type_1_type_2_t/")` mehr dazu später!</small>
 
 Signifikanzniveau
 ====================
@@ -408,7 +408,7 @@ Welche Frage haben wir gestellt und welche Frage beantworten wir?
   - Parameterschätzung
   - Effektgröße
   - ...
-- Messen "Effort" (*Aufwand*) `r citep("http://www.johnmyleswhite.com/notebook/2012/07/17/criticism-5-of-nhst-p-values-measure-effort-not-truth/")`
+- Messen "Effort" (*Aufwand*) ` citep("http://www.johnmyleswhite.com/notebook/2012/07/17/criticism-5-of-nhst-p-values-measure-effort-not-truth/")`
 
 Andere Schwierigkeiten (mehr später)
 ======================================

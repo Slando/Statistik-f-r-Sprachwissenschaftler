@@ -132,7 +132,7 @@ Jetzt können wir die absoluten Häufigkeiten auch plotten:
 
 ```{r}
 ggplot(data = noten.dist, aes(x = Notenpunkte, y = Anzahl, color = Standardabweichung)) + 
-    geom_line() + scale_x_continuous(limits = c(0, 16))
+    geom_line() + scale_x_continuous(limits = c(-1, 17))
 ```
 Beantworten Sie ein paar Fragen über die Verteilung, indem Sie den passenden R-Code einsetzen:
 

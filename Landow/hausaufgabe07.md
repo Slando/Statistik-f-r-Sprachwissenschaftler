@@ -289,7 +289,13 @@ noten.dist
 
 Jetzt können wir die absoluten Häufigkeiten auch plotten:
 
-code_block_hier
+
+```r
+ggplot(data = noten.dist, aes(x = Notenpunkte, y = Anzahl, color = Standardabweichung)) + 
+    geom_line() + scale_x_continuous(limits = c(0, 16))
+```
+
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12.png) 
 
 Beantworten Sie ein paar Fragen über die Verteilung, indem Sie den passenden R-Code einsetzen:
 
@@ -301,15 +307,15 @@ Beantworten Sie ein paar Fragen über die Verteilung, indem Sie den passenden R-
 
 2. Wie viele Studenten bekommen zumindest 10 NP?
 
-    `code_hier` Studenten bekommen zumindest 10 Notenpunkte.
+    12.6246 Studenten bekommen zumindest 10 Notenpunkte.
 
 3. Wie viele Studenten bekommen weniger als 10 NP?
 
-    `code_hier` Studenten bekommen weniger als 10 Notenpunkte.
-
+    37.3754 Studenten bekommen weniger als 10 Notenpunkte.
+`
 4. Wie viele Studenten bekommen weniger als 8 NP?
 
-    `code_hier` Studenten bekommen weniger als 8 Notenpunkte.
+    25 Studenten bekommen weniger als 8 Notenpunkte.
 
 
 (Die Einrückung mit 4 Leerschlägen ist die Syntax für mehrere Absätze pro Punkt auf der Liste.)
@@ -321,7 +327,7 @@ Um überdurchschnittlich zu sein, muss man mehr als 8 Notenpunkte bekommen.
 
 Nicht so überraschend, dass "überdurchschnittlich" auch "mehr Punkte als den Durchschnitt bekommen" heißt! Wie sieht es aus, wenn wir besser als 99% der anderen abschließen möchten?
 
-Um in dem besten 1% abzuschließen, muss man zumindest `code_hier` Notenpunkte bekommen.
+Um in dem besten 1% abzuschließen, muss man zumindest 14.979 Notenpunkte bekommen.
 
 ## z-Transformation
 Bei der Überprüfung der Lehrqualität scheint es der Verwaltung, dass ein gewisser Dozent andere Noten als andere Dozenten vergibt. Es wird entschieden, dass der Notenspiegel bei den Teilnehmern in einem von seinen Kursen getestet wird, um zu schauen, ob er sich von signifikant von der idealisierten Notenverteilung ($\mu=8,\sigma=3$) unterscheidet. Um zu zeigen, dass Gott $\alpha=0.06$ so viel liebt wie $\alpha=0.05$ 
@@ -334,26 +340,45 @@ Error in eval(expr, envir, enclos) : konnte Funktion "citep" nicht finden
 
 , setzt die Verwaltung das Signikanzniveau auf 0.06. 
 
-Der kritische Wert für einen einseitigen $z$-Test ist `code_hier`.
+Der kritische Wert für einen einseitigen $z$-Test ist 1.5548.
 
-Die kritischen Werte für einen zweiseitigen $z$-Test sind $\pm$`code_hier`.
+Die kritischen Werte für einen zweiseitigen $z$-Test sind $\pm$ 1.8808.
 
 ### Gibt es einen Unterschied?
 Bei diesem Dozenten ist die Verwaltung wirklich unsicher, ob und was für einen Unterschied es geben könnte. (Welche Testart sollte man hier nutzen?)
+Ein einseitiger Test müsste ausreichen, da die Verschiebung nur in eine Richtung beobachtet wurde.
 
 In einem kleinen Seminar mit 7 Studenten beträgt der Durchschnittswert 10. Unterscheidet sich der Notenspiegel von dem idealen? Berechnen Sie den $z$-Test:
 
-code_hier
+
+```r
+sqrt(7) * ((10 - 8)/3)
+```
+
+```
+## [1] 1.764
+```
+
 
 Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
 
 In einer Vorlesung vom selben Dozenten mit 50 Teilnehmern beträgt der Durchschnittswert wieder 10. (Es scheint, dass der Dozent 10 besonders toll findet.) Berechnen Sie den $z$-Test:
 
-code_hier
+
+```r
+sqrt(50) * ((10 - 8)/3)
+```
+
+```
+## [1] 4.714
+```
+
 
 Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
 
 Ist die Benotung vom Dozenten weniger als ideal? 
+
+Die Benotung ist abweichend. Es gibt zumindest bei 50 Studenten eine signifikante Abweichung, da 4.714 > 1.5548. Bei 7 Studenten ist die Abweichung nicht signifikant.
 
 ### Ein anderer, böserer? Dozent
 Die Verwaltung ist auch auf einen anderen Dozenten aufmerksam geworden, weil manche Studenten behaupten, er würde zu streng benoten. (Welche Testart sollte man hier nutzen?)
@@ -362,7 +387,19 @@ In einem mittelgroßen Seminar mit 20 Studenten beträgt der Durchschnittswert 7
 
 Berechnen Sie den $z$-Test:
 
-code_hier
+
+```r
+sqrt((sqrt(20) * ((7 - 8)/3))^2)
+```
+
+```
+## [1] 1.491
+```
+
+```r
+
+```
+
 
 Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
 
@@ -370,7 +407,18 @@ Später ergibt sich, dass es eigentlich 25 Studenten im Kurs gab. (Der Dozent ha
 
 Berechnen Sie den $z$-Test:
 
-code_hier
+
+```r
+z <- sqrt((sqrt(25) * ((7 - 8)/3))^2)
+print(z)
+```
+
+```
+## [1] 1.667
+```
+
+Der Notenschnitt weicht für 25 Studenten im Schnitt signifikant (da 1.6667 > 1.5548) von der Erwartung (8NP) ab, nicht jedoch für 20 Studenten.
+
 
 Das ist ein **_eins_von_signifikanter_insignifikanter_** Unterschied. 
 
@@ -386,4 +434,4 @@ Gibt es einen Grund, weshalb die Noten normal verteilt sein sollten? Warum ist d
 
 
 # Lizenz
-Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
+Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz und darf entsprechend verwendet werden.

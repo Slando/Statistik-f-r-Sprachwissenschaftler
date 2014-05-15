@@ -24,9 +24,19 @@ Das ist besonders toll bei Abschlussarbeiten: Sie gehen zu Ihrem Betreuer mit En
 Der Index bzw. das Staging Area ist ein vorläufiger Commit, an dem Sie gerade arbeiten. Änderungen im Staging Area haben keine Commit-Message und werden auch nicht an andere gegeben, wenn Sie einen Push machen. Sie können auch einfach durcharbeiten, ohnen etwas in den Index zu tun, bis Sie mit dem gesamten Commit fertig sind, und am Ende stage-n und sofort commit-en, wenn das Ihnen besser passt. 
 
 # Ein bisschen Markdown
-Es gibt in RStudio und im Internet **viel** zu Markdown. RStudio nutzt einen besonderen Dialekt, damit auch R-Code-Blöcke eingebaut werden können, aber der Großteil der "Syntax" ändert sich nicht. Fügen Sie hier eine ungeordnete Liste hier mit zumindest zwei Erwartungen von diesem Kurs ein. Testen Sie, dass Sie das korrekt formatiert haben, indem Sie auf "Knit HTML" klicken und schauen, dass die Liste mit Punkten erscheint.  
+Es gibt in RStudio und im Internet **viel** zu Markdown. RStudio nutzt einen besonderen Dialekt, damit auch R-Code-Blöcke eingebaut werden können, aber der Großteil der "Syntax" ändert sich nicht. Fügen Sie hier eine ungeordnete Liste hier mit zumindest zwei Erwartungen von diesem Kurs ein. Testen Sie, dass Sie das korrekt formatiert haben, indem Sie auf "Knit HTML" klicken und schauen, dass die Liste mit Punkten erscheint.
 
-list_hier
+
+```r
+Erwartungen <- c("grundlegende Statstikkenntnisse Erwerben", "schöne Grafiken machen")
+print(Erwartungen)
+```
+
+```
+## [1] "grundlegende Statstikkenntnisse Erwerben"
+## [2] "schöne Grafiken machen"
+```
+
 
 ## R-Code-Blöcke
 
@@ -66,7 +76,7 @@ carplot <- qplot(mpg, data = mtcars, geom = "density", fill = gear, alpha = I(0.
 print(carplot)
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
 
 Das ist übrigens ein sehr gutes Beispiel, wie die Darstellung von Daten bzw. Statistik unseren Eindruck und unsere Wahrnehmung davon beeinflussen kann. Wenn wir die Grafik breiter aber weniger hoch, sieht das Bild anders aus!
@@ -76,7 +86,7 @@ Das ist übrigens ein sehr gutes Beispiel, wie die Darstellung von Daten bzw. St
 print(carplot)
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
 
 
 ## Inline R-Code
@@ -84,12 +94,10 @@ R-Code können Sie auch direkt in den Fließtext bauen: Die Quadratwurzel von 13
 
 Ergänzen Sie folgende Zeile mit Inline R-code, sodass der Satz korrekt und vollständig ist:
 
-Die Summe von 98545455678767 und 567886538546532323 ist: code_hier .
+Die Summe von 98545455678767 und 567886538546532323 ist: 5.6799 &times; 10<sup>17</sup> 5.6799 &times; 10<sup>17</sup>.
 
 # Normaler R-Code 
 Es ist natürlich auch möglich R-Code zu schreiben, ohne ihn in (R)Markdown einzubetten. Dazu geht die Aufgabe weiter mit `hausaufgabe03b.R` weiter. Sie sollten die Datei auch in Ihren Ordner kopieren und einen Commit machen, bevor Sie die Kopie weiter anpassen.
 
 # Lizenz
-Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
-
-Diese Datei darf weiter als Beispiel genutzt werden.
+Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz und darf weiter als Beispiel genutzt werden.
