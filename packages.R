@@ -9,6 +9,12 @@ packages.used <- c("knitr","knitcitations"
                    ,"reshape"
                    ,"sn"
                    ,"car"
+                   ,"shiny"
+                   ,"scales"
+                   ,"gridExtra"
+                   ,"zoo"
+                   ,"xtable"
+                   ,"ez"
                    )
 
 install.packages(packages.used,dependencies = TRUE)
@@ -17,5 +23,9 @@ install.packages(packages.used,dependencies = TRUE)
 =======
 
 # Debian/Ubuntu-Nutzer  
+<<<<<<< HEAD
 # sudo apt-get install libxml2-dev libcurl4-openssel-dev jags
 >>>>>>> 2d35a226033d802734551a5f346bca9d24ad9652
+=======
+# sudo apt-get install libxml2-dev libcurl4-openssel-dev rjags
+>>>>>>> f7682f7005c50a4094d240b18ad2238617e6c215
