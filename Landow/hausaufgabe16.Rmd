@@ -1,5 +1,5 @@
 % Hausaufgabe 16
-% Phillip Alday <phillip.alday@staff.uni-marburg.de>
+% Landow, Steven <Landow@students.uni-marburg.de>
 % 2014-06-11
 
 Falls die Umlaute in dieser und anderen Dateien nicht korrekt dargestellt werden, sollten Sie File > Reopen with Encoding > UTF-8 sofort machen (und auf jeden Fall ohne davor zu speichern), damit die Enkodierung korrekt erkannt wird! 
@@ -57,9 +57,27 @@ ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point()
 ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point(alpha=0.3)
 ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point() + facet_wrap(~color)
 ```
+```{r}
+lm <- lm(price~carat * clarity,data=diamonds)
+summary(lm)
+````
 
+# Karat/Preis und Clarity/Preis
+```{r}
+ANOVA<-aov(price~carat,data=diamonds)
+ANOVA2<-aov(price~clarity,data=diamonds)
+summary(ANOVA)
+summary(ANOVA2)
+```
+
+# Price~Karat*Clarity
+```{r}
+ANOVA3<- aov(price~carat*clarity,data=diamonds)
+summary(ANOVA3)
+```
 # Noch eine Überlegung
 Haben Sie dabei explorativ oder konfirmativ gearbeitet? Was hat das für eine Auswirkung auf die Interpretation der Ergebnisse?
+  # Bei der Analyse der Daten kann man entweder explorativ oder konfirmatorisch vorgehen. Im ersten Fall sucht man gezielt nach Strukturen, während man im zweiten Fall von einer Hypothese oder mehreren Hypothesen ausgeht, die man überprüfen will. Hierbei wurde dementsprechend explorativ gearbeitet.
 
 # Lizenz
 Dieses Werk ist lizenziert unter einer CC-BY-NC-SA Lizenz.
