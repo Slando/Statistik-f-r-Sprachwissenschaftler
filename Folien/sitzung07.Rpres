@@ -9,10 +9,16 @@ opts_chunk$set(cache=TRUE,prompt=TRUE)
 #library(knitcitations)
 library(ggplot2)
 library(reshape2)
+<<<<<<< HEAD
 #cite_options(tooltip = TRUE
  #            , linked = TRUE
   #           , numerical = TRUE
    #          , bibtex_data = FALSE)
+=======
+cite_options(tooltip = TRUE
+             , linked = TRUE
+             , bibtex_data = FALSE)
+>>>>>>> 184a565cfd672cacfa786337365742397bed8970
 ```
 
 
